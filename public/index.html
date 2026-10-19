@@ -1,0 +1,11 @@
+<input id="t"><button onclick="enviar()">Enviar</button><ul id="l"></ul>
+<script>
+const wsProtocol = location.protocol === "https:" ? "wss:" : "ws:";
+const ws = new WebSocket(`${wsProtocol}//${location.host}`);
+ws.onmessage = (e) => {
+  const li = document.createElement("li");
+  li.textContent = JSON.parse(e.data).msg.text;
+  l.append(li);
+};
+function enviar() { ws.send(JSON.stringify({ type: "chat", text: t.value })); }
+</script>
